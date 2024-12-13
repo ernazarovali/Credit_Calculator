@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кредитный калькулятор</title>
+    <!-- Ensure the styles.css file is correctly located in the same directory as this file -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #detailsButton {
+            display: none;
+        }
+
+        #detailsTable {
+            display: none;
+        }
+
+        .slider-container {
+            margin: 10px 0;
+        }
+
+        .slider-value {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        input[type="range"] {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Кредитный калькулятор</h1>
+        <form id="loanForm">
+            <label for="amount">Сумма кредита (сум):</label>
+            <div class="slider-container">
+                <div class="slider-value" id="amountValue">100000</div>
+                <input type="range" id="amount" min="10000000" max="100000000" step="100000" value="100000">
+            </div>
+
+            <label for="rate">Процентная ставка (%):</label>
+            <input type="number" id="rate" step="0.1" placeholder="Введите ставку" required>
+
+            <label for="term">Срок кредита (мес.):</label>
+            <div class="slider-container">
+                <div class="slider-value" id="termValue">12</div>
+                <input type="range" id="term" min="1" max="120" step="1" value="12">
+            </div>
+
+            <label for="type">Тип расчета:</label>
+            <select id="type">
+                <option value="annuity">Аннуитет</option>
+                <option value="differential">Дифференциал</option>
+            </select>
+
+            <button type="button" id="calculateButton">Рассчитать</button>
+        </form>
+        <div id="result">
+            <h2>Результат:</h2>
+            <p>Ежемесячный платеж: <span id="monthlyPayment">-</span> сум</p>
+            <button type="button" id="detailsButton">Подробнее</button>
+        </div>
+        <div id="detailsTable">
+            <h3>График платежей:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Месяц</th>
+                        <th>Платеж (сум)</th>
+                        <th>Основной долг (сум)</th>
+                        <th>Проценты (сум)</th>
+                        <th>Остаток долга (сум)</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const amountSlider = document.getElementById('amount');
+        const amountValue = document.getElementById('amountValue');
+        const termSlider = document.getElementById('term');
+        const termValue = document.getElementById('termValue');
+
+        amountSlider.addEventListener('input', () => {
+            amountValue.textContent = `${parseInt(amountSlider.value).toLocaleString()} сум`;
+        });
+
+        termSlider.addEventListener('input', () => {
+            termValue.textContent = `${termSlider.value} мес.`;
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
